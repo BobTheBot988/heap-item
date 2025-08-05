@@ -1,0 +1,27 @@
+FROM quay.io/pypa/manylinux2014_x86_64
+
+# Install system dependencies first (these rarely change)
+RUN yum install -y gcc gcc-c++ make git \
+    libffi-devel openssl-devel
+
+# Upgrade pip (separate layer for better caching)
+RUN pip install --upgrade pip
+
+# Install Python build tools (separate layer)
+RUN pip install cython build cibuildwheel
+
+# Set working directory
+WORKDIR /project
+
+# Create output directory
+RUN mkdir -p /project/dist
+
+# Copy requirements/setup files first if you have them
+# COPY requirements.txt setup.py pyproject.toml ./
+# RUN pip install -r requirements.txt  # Only if using requirements.txt
+
+# Copy project files LAST (this layer changes most frequently)
+COPY . /project
+
+# Default command (can be overridden)
+CMD ["/bin/bash"]
