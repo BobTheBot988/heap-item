@@ -1,8 +1,6 @@
 # distutils: language = c++
 
 from libc.string cimport strncpy, strlen
-from libc.sttdef cimport sizet
-
 from cpython.bytes cimport PyBytes_FromStringAndSize
 from cpython.mem cimport PyMem_Malloc,PyMem_Free
 
@@ -45,15 +43,18 @@ cdef class HeapItem:
 
     def __eq__(self, HeapItem other)->bool:
         return self._prob == other._prob and self.password_string == other.password_string
-    def memory_size(self) -> int:
-         """Return detailed breakdown of memory usage"""
-    return {
-        'object_size': sizeof(HeapItem),
-        'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,
-        'total': sizeof(HeapItem) + (sizeof(char) * (strlen(self._password)+ 1) if self._password != NULL else 0)
-    }
+    
+    def memory_size(self) -> dict[str[int]]:
+        """Return detailed breakdown of memory usage"""
+        return {
+            'object_size': sizeof(HeapItem),
+            'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,
+            'total': sizeof(HeapItem) + (sizeof(char) * (strlen(self._password)+ 1) if self._password != NULL else 0)
+        }
+
     def __sizeof__(self)->int:
-        return memory_size['total']
+        return self.memory_size()['total']
+
     @property
     def password_string(self)->str:
         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii') 
