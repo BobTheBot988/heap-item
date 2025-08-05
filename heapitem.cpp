@@ -1526,12 +1526,12 @@ struct __pyx_obj_8heapitem_HeapItem;
  * 
  * cdef class HeapItem:             # <<<<<<<<<<<<<<
  *     cdef double _prob
- *     cdef char* password
+ *     cdef char* _password
 */
 struct __pyx_obj_8heapitem_HeapItem {
   PyObject_HEAD
   double _prob;
-  char *password;
+  char *_password;
 };
 
 /* #### Code section: utility_code_proto ### */
@@ -1851,6 +1851,27 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 
 /* RejectKeywords.proto */
 static void __Pyx_RejectKeywords(const char* function_name, PyObject *kwds);
+
+/* PyObjectFastCallMethod.proto */
+#if CYTHON_VECTORCALL && PY_VERSION_HEX >= 0x03090000
+#define __Pyx_PyObject_FastCallMethod(name, args, nargsf) PyObject_VectorcallMethod(name, args, nargsf, NULL)
+#else
+static PyObject *__Pyx_PyObject_FastCallMethod(PyObject *name, PyObject *const *args, size_t nargsf);
+#endif
+
+/* DictGetItem.proto */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key);
+#define __Pyx_PyObject_Dict_GetItem(obj, name)\
+    (likely(PyDict_CheckExact(obj)) ?\
+     __Pyx_PyDict_GetItem(obj, name) : PyObject_GetItem(obj, name))
+#else
+#define __Pyx_PyDict_GetItem(d, key) PyObject_GetItem(d, key)
+#define __Pyx_PyObject_Dict_GetItem(obj, name)  PyObject_GetItem(obj, name)
+#endif
+
+/* RaiseUnexpectedTypeError.proto */
+static int __Pyx_RaiseUnexpectedTypeError(const char *expected, PyObject *obj);
 
 /* decode_c_string_utf16.proto */
 static CYTHON_INLINE PyObject *__Pyx_PyUnicode_DecodeUTF16(const char *s, Py_ssize_t size, const char *errors) {
@@ -2321,7 +2342,9 @@ static const char __pyx_k__2[] = ", ";
 static const char __pyx_k__3[] = ")";
 static const char __pyx_k__4[] = "?";
 static const char __pyx_k_gc[] = "gc";
+static const char __pyx_k_int[] = "int";
 static const char __pyx_k_pop[] = "pop";
+static const char __pyx_k_t_r[] = "\320\004\032\230!\330\010\017\210t\220<\230r\240\021\240!";
 static const char __pyx_k_free[] = "free";
 static const char __pyx_k_func[] = "__func__";
 static const char __pyx_k_main[] = "__main__";
@@ -2329,10 +2352,13 @@ static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_prob[] = "prob";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_total[] = "total";
 static const char __pyx_k_enable[] = "enable";
 static const char __pyx_k_length[] = "length";
 static const char __pyx_k_module[] = "__module__";
 static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_return[] = "return";
+static const char __pyx_k_sizeof[] = "__sizeof__";
 static const char __pyx_k_disable[] = "disable";
 static const char __pyx_k_HeapItem[] = "HeapItem";
 static const char __pyx_k_add_note[] = "add_note";
@@ -2346,20 +2372,27 @@ static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_isenabled[] = "isenabled";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
-static const char __pyx_k_A_D_Q_at1_A[] = "\200A\330\t\014\210D\220\n\230#\230Q\330\014\026\220a\220t\2301\330\014\020\220\014\230A";
 static const char __pyx_k_MemoryError[] = "MemoryError";
+static const char __pyx_k_memory_size[] = "memory_size";
+static const char __pyx_k_object_size[] = "object_size";
 static const char __pyx_k_probability[] = "probability";
+static const char __pyx_k_A_D_3a_at1_Q[] = "\200A\330\t\014\210D\220\013\2303\230a\330\014\026\220a\220t\2301\330\014\020\220\r\230Q";
+static const char __pyx_k_dict_str_int[] = "dict[str[int]]";
 static const char __pyx_k_heapitem_pyx[] = "heapitem.pyx";
 static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_stringsource[] = "<stringsource>";
 static const char __pyx_k_HeapItem_free[] = "HeapItem.free";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
+static const char __pyx_k_password_buffer[] = "password_buffer";
 static const char __pyx_k_password_string[] = "password_string";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_HeapItem___sizeof[] = "HeapItem.__sizeof__";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_HeapItem_memory_size[] = "HeapItem.memory_size";
 static const char __pyx_k_HeapItem___reduce_cython[] = "HeapItem.__reduce_cython__";
 static const char __pyx_k_HeapItem___setstate_cython[] = "HeapItem.__setstate_cython__";
+static const char __pyx_k_Q_1_CvQd_QfDP_hhi_c_c_q_KrQWW_f[] = "\320\004\035\230Q\340\010\t\330\014\033\2301\330\014\037\230}\250C\250v\260Q\260d\270+\300Q\300f\310D\320P[\320[^\320^h\320hi\330\014\025\320\025&\240c\250\035\260c\270\026\270q\300\004\300K\310r\320QW\320W[\320[f\320fi\320is\320st";
 static const char __pyx_k_The_Probability_must_be_a_float[] = "The Probability must be a float";
 static const char __pyx_k_Failed_to_allocate_password_buff[] = "Failed to allocate password buffer";
 static const char __pyx_k_Note_that_Cython_is_deliberately[] = "Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.";
@@ -2372,12 +2405,14 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_2free(struct __pyx_obj_8heapitem_H
 static void __pyx_pf_8heapitem_8HeapItem_4__dealloc__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_8heapitem_8HeapItem_6__lt__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, struct __pyx_obj_8heapitem_HeapItem *__pyx_v_other); /* proto */
 static PyObject *__pyx_pf_8heapitem_8HeapItem_8__eq__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, struct __pyx_obj_8heapitem_HeapItem *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_8heapitem_8HeapItem_10memory_size(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_8heapitem_8HeapItem_12__sizeof__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_8heapitem_8HeapItem_15password_string___get__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_8heapitem_8HeapItem_4prob___get__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
 static int __pyx_pf_8heapitem_8HeapItem_4prob_2__set__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, PyObject *__pyx_v_val); /* proto */
-static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_8heapitem_8HeapItem_12__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_8heapitem_8HeapItem_14__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_8heapitem_8HeapItem_14__repr__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_8heapitem_8HeapItem_16__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_8heapitem_8HeapItem_18__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_8heapitem_HeapItem(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
@@ -2421,8 +2456,9 @@ typedef struct {
   PyObject *__pyx_type_8heapitem_HeapItem;
   PyTypeObject *__pyx_ptype_8heapitem_HeapItem;
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_pop;
-  PyObject *__pyx_codeobj_tab[3];
-  PyObject *__pyx_string_tab[49];
+  PyObject *__pyx_codeobj_tab[5];
+  PyObject *__pyx_string_tab[59];
+  PyObject *__pyx_int_0;
 /* #### Code section: module_state_contents ### */
 /* CommonTypesMetaclass.module_state_decls */
 PyTypeObject *__pyx_CommonTypesMetaclassType;
@@ -2465,50 +2501,60 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_n_u_HeapItem __pyx_string_tab[2]
 #define __pyx_n_u_HeapItem___reduce_cython __pyx_string_tab[3]
 #define __pyx_n_u_HeapItem___setstate_cython __pyx_string_tab[4]
-#define __pyx_n_u_HeapItem_free __pyx_string_tab[5]
-#define __pyx_n_u_MemoryError __pyx_string_tab[6]
-#define __pyx_kp_u_Note_that_Cython_is_deliberately __pyx_string_tab[7]
-#define __pyx_kp_u_The_Probability_must_be_a_float __pyx_string_tab[8]
-#define __pyx_kp_u_The_len_must_be_a_positive_integ __pyx_string_tab[9]
-#define __pyx_kp_u_The_password_must_be_of_string_t __pyx_string_tab[10]
-#define __pyx_n_u_TypeError __pyx_string_tab[11]
-#define __pyx_kp_u__2 __pyx_string_tab[12]
-#define __pyx_kp_u__3 __pyx_string_tab[13]
-#define __pyx_kp_u__4 __pyx_string_tab[14]
-#define __pyx_kp_u_add_note __pyx_string_tab[15]
-#define __pyx_n_u_asyncio_coroutines __pyx_string_tab[16]
-#define __pyx_n_u_cline_in_traceback __pyx_string_tab[17]
-#define __pyx_kp_u_disable __pyx_string_tab[18]
-#define __pyx_kp_u_enable __pyx_string_tab[19]
-#define __pyx_n_u_free __pyx_string_tab[20]
-#define __pyx_n_u_func __pyx_string_tab[21]
-#define __pyx_kp_u_gc __pyx_string_tab[22]
-#define __pyx_n_u_getstate __pyx_string_tab[23]
-#define __pyx_n_u_heapitem __pyx_string_tab[24]
-#define __pyx_kp_u_heapitem_pyx __pyx_string_tab[25]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[26]
-#define __pyx_kp_u_isenabled __pyx_string_tab[27]
-#define __pyx_n_u_length __pyx_string_tab[28]
-#define __pyx_n_u_main __pyx_string_tab[29]
-#define __pyx_n_u_module __pyx_string_tab[30]
-#define __pyx_n_u_name __pyx_string_tab[31]
-#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[32]
-#define __pyx_n_u_password __pyx_string_tab[33]
-#define __pyx_n_u_password_string __pyx_string_tab[34]
-#define __pyx_n_u_pop __pyx_string_tab[35]
-#define __pyx_n_u_prob __pyx_string_tab[36]
-#define __pyx_n_u_probability __pyx_string_tab[37]
-#define __pyx_n_u_pyx_state __pyx_string_tab[38]
-#define __pyx_n_u_qualname __pyx_string_tab[39]
-#define __pyx_n_u_reduce __pyx_string_tab[40]
-#define __pyx_n_u_reduce_cython __pyx_string_tab[41]
-#define __pyx_n_u_reduce_ex __pyx_string_tab[42]
-#define __pyx_n_u_self __pyx_string_tab[43]
-#define __pyx_n_u_set_name __pyx_string_tab[44]
-#define __pyx_n_u_setstate __pyx_string_tab[45]
-#define __pyx_n_u_setstate_cython __pyx_string_tab[46]
-#define __pyx_kp_u_stringsource __pyx_string_tab[47]
-#define __pyx_n_u_test __pyx_string_tab[48]
+#define __pyx_n_u_HeapItem___sizeof __pyx_string_tab[5]
+#define __pyx_n_u_HeapItem_free __pyx_string_tab[6]
+#define __pyx_n_u_HeapItem_memory_size __pyx_string_tab[7]
+#define __pyx_n_u_MemoryError __pyx_string_tab[8]
+#define __pyx_kp_u_Note_that_Cython_is_deliberately __pyx_string_tab[9]
+#define __pyx_kp_u_The_Probability_must_be_a_float __pyx_string_tab[10]
+#define __pyx_kp_u_The_len_must_be_a_positive_integ __pyx_string_tab[11]
+#define __pyx_kp_u_The_password_must_be_of_string_t __pyx_string_tab[12]
+#define __pyx_n_u_TypeError __pyx_string_tab[13]
+#define __pyx_kp_u__2 __pyx_string_tab[14]
+#define __pyx_kp_u__3 __pyx_string_tab[15]
+#define __pyx_kp_u__4 __pyx_string_tab[16]
+#define __pyx_kp_u_add_note __pyx_string_tab[17]
+#define __pyx_n_u_asyncio_coroutines __pyx_string_tab[18]
+#define __pyx_n_u_cline_in_traceback __pyx_string_tab[19]
+#define __pyx_kp_u_dict_str_int __pyx_string_tab[20]
+#define __pyx_kp_u_disable __pyx_string_tab[21]
+#define __pyx_kp_u_enable __pyx_string_tab[22]
+#define __pyx_n_u_free __pyx_string_tab[23]
+#define __pyx_n_u_func __pyx_string_tab[24]
+#define __pyx_kp_u_gc __pyx_string_tab[25]
+#define __pyx_n_u_getstate __pyx_string_tab[26]
+#define __pyx_n_u_heapitem __pyx_string_tab[27]
+#define __pyx_kp_u_heapitem_pyx __pyx_string_tab[28]
+#define __pyx_n_u_int __pyx_string_tab[29]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[30]
+#define __pyx_kp_u_isenabled __pyx_string_tab[31]
+#define __pyx_n_u_length __pyx_string_tab[32]
+#define __pyx_n_u_main __pyx_string_tab[33]
+#define __pyx_n_u_memory_size __pyx_string_tab[34]
+#define __pyx_n_u_module __pyx_string_tab[35]
+#define __pyx_n_u_name __pyx_string_tab[36]
+#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[37]
+#define __pyx_n_u_object_size __pyx_string_tab[38]
+#define __pyx_n_u_password __pyx_string_tab[39]
+#define __pyx_n_u_password_buffer __pyx_string_tab[40]
+#define __pyx_n_u_password_string __pyx_string_tab[41]
+#define __pyx_n_u_pop __pyx_string_tab[42]
+#define __pyx_n_u_prob __pyx_string_tab[43]
+#define __pyx_n_u_probability __pyx_string_tab[44]
+#define __pyx_n_u_pyx_state __pyx_string_tab[45]
+#define __pyx_n_u_qualname __pyx_string_tab[46]
+#define __pyx_n_u_reduce __pyx_string_tab[47]
+#define __pyx_n_u_reduce_cython __pyx_string_tab[48]
+#define __pyx_n_u_reduce_ex __pyx_string_tab[49]
+#define __pyx_n_u_return __pyx_string_tab[50]
+#define __pyx_n_u_self __pyx_string_tab[51]
+#define __pyx_n_u_set_name __pyx_string_tab[52]
+#define __pyx_n_u_setstate __pyx_string_tab[53]
+#define __pyx_n_u_setstate_cython __pyx_string_tab[54]
+#define __pyx_n_u_sizeof __pyx_string_tab[55]
+#define __pyx_kp_u_stringsource __pyx_string_tab[56]
+#define __pyx_n_u_test __pyx_string_tab[57]
+#define __pyx_n_u_total __pyx_string_tab[58]
 /* #### Code section: module_state_clear ### */
 #if CYTHON_USE_MODULE_STATE
 static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
@@ -2532,8 +2578,9 @@ static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_ptype_7cpython_4type_type);
   Py_CLEAR(clear_module_state->__pyx_ptype_8heapitem_HeapItem);
   Py_CLEAR(clear_module_state->__pyx_type_8heapitem_HeapItem);
-  for (int i=0; i<3; ++i) { Py_CLEAR(clear_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<49; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<5; ++i) { Py_CLEAR(clear_module_state->__pyx_codeobj_tab[i]); }
+  for (int i=0; i<59; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
+  Py_CLEAR(clear_module_state->__pyx_int_0);
   return 0;
 }
 #endif
@@ -2557,15 +2604,16 @@ static CYTHON_SMALL_CODE int __pyx_m_traverse(PyObject *m, visitproc visit, void
   Py_VISIT(traverse_module_state->__pyx_ptype_7cpython_4type_type);
   Py_VISIT(traverse_module_state->__pyx_ptype_8heapitem_HeapItem);
   Py_VISIT(traverse_module_state->__pyx_type_8heapitem_HeapItem);
-  for (int i=0; i<3; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<49; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<5; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_codeobj_tab[i]); }
+  for (int i=0; i<59; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
+  __Pyx_VISIT_CONST(traverse_module_state->__pyx_int_0);
   return 0;
 }
 #endif
 /* #### Code section: module_code ### */
 
 /* "heapitem.pyx":12
- *     cdef char* password
+ *     cdef char* _password
  * 
  *     def __cinit__(self, double probability, password:str, unsigned length):             # <<<<<<<<<<<<<<
  *         if not (isinstance(length,int) and length > 0):
@@ -2741,7 +2789,7 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
  * 
  *         if isinstance(password,str):             # <<<<<<<<<<<<<<
  *            password_bytes:bytes = (<str>password).encode('ascii')
- *            self.password = <char*>PyMem_Malloc(length+1)
+ *            self._password = <char*>PyMem_Malloc(length+1)
 */
   __pyx_t_3 = PyUnicode_Check(__pyx_v_password); 
   if (likely(__pyx_t_3)) {
@@ -2750,8 +2798,8 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
  * 
  *         if isinstance(password,str):
  *            password_bytes:bytes = (<str>password).encode('ascii')             # <<<<<<<<<<<<<<
- *            self.password = <char*>PyMem_Malloc(length+1)
- *            if self.password == NULL:
+ *            self._password = <char*>PyMem_Malloc(length+1)
+ *            if self._password == NULL:
 */
     if (unlikely(__pyx_v_password == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
@@ -2765,28 +2813,28 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
     /* "heapitem.pyx":18
  *         if isinstance(password,str):
  *            password_bytes:bytes = (<str>password).encode('ascii')
- *            self.password = <char*>PyMem_Malloc(length+1)             # <<<<<<<<<<<<<<
- *            if self.password == NULL:
+ *            self._password = <char*>PyMem_Malloc(length+1)             # <<<<<<<<<<<<<<
+ *            if self._password == NULL:
  *                raise MemoryError("Failed to allocate password buffer")
 */
-    __pyx_v_self->password = ((char *)PyMem_Malloc((__pyx_v_length + 1)));
+    __pyx_v_self->_password = ((char *)PyMem_Malloc((__pyx_v_length + 1)));
 
     /* "heapitem.pyx":19
  *            password_bytes:bytes = (<str>password).encode('ascii')
- *            self.password = <char*>PyMem_Malloc(length+1)
- *            if self.password == NULL:             # <<<<<<<<<<<<<<
+ *            self._password = <char*>PyMem_Malloc(length+1)
+ *            if self._password == NULL:             # <<<<<<<<<<<<<<
  *                raise MemoryError("Failed to allocate password buffer")
  * 
 */
-    __pyx_t_3 = (__pyx_v_self->password == NULL);
+    __pyx_t_3 = (__pyx_v_self->_password == NULL);
     if (unlikely(__pyx_t_3)) {
 
       /* "heapitem.pyx":20
- *            self.password = <char*>PyMem_Malloc(length+1)
- *            if self.password == NULL:
+ *            self._password = <char*>PyMem_Malloc(length+1)
+ *            if self._password == NULL:
  *                raise MemoryError("Failed to allocate password buffer")             # <<<<<<<<<<<<<<
  * 
- *            strncpy(self.password, password_bytes, length)
+ *            strncpy(self._password, password_bytes, length)
 */
       __pyx_t_5 = NULL;
       __Pyx_INCREF(__pyx_builtin_MemoryError);
@@ -2806,8 +2854,8 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
 
       /* "heapitem.pyx":19
  *            password_bytes:bytes = (<str>password).encode('ascii')
- *            self.password = <char*>PyMem_Malloc(length+1)
- *            if self.password == NULL:             # <<<<<<<<<<<<<<
+ *            self._password = <char*>PyMem_Malloc(length+1)
+ *            if self._password == NULL:             # <<<<<<<<<<<<<<
  *                raise MemoryError("Failed to allocate password buffer")
  * 
 */
@@ -2816,34 +2864,34 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
     /* "heapitem.pyx":22
  *                raise MemoryError("Failed to allocate password buffer")
  * 
- *            strncpy(self.password, password_bytes, length)             # <<<<<<<<<<<<<<
- *            self.password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s
+ *            strncpy(self._password, password_bytes, length)             # <<<<<<<<<<<<<<
+ *            self._password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s
  *         else:
 */
     __pyx_t_7 = __Pyx_PyBytes_AsString(__pyx_v_password_bytes); if (unlikely((!__pyx_t_7) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L1_error)
-    (void)(strncpy(__pyx_v_self->password, __pyx_t_7, __pyx_v_length));
+    (void)(strncpy(__pyx_v_self->_password, __pyx_t_7, __pyx_v_length));
 
     /* "heapitem.pyx":23
  * 
- *            strncpy(self.password, password_bytes, length)
- *            self.password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s             # <<<<<<<<<<<<<<
+ *            strncpy(self._password, password_bytes, length)
+ *            self._password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError("The password must be of string type")
 */
-    (__pyx_v_self->password[__pyx_v_length]) = '\x00';
+    (__pyx_v_self->_password[__pyx_v_length]) = '\x00';
 
     /* "heapitem.pyx":16
  *             raise TypeError("The len must be a positive integer")
  * 
  *         if isinstance(password,str):             # <<<<<<<<<<<<<<
  *            password_bytes:bytes = (<str>password).encode('ascii')
- *            self.password = <char*>PyMem_Malloc(length+1)
+ *            self._password = <char*>PyMem_Malloc(length+1)
 */
     goto __pyx_L6;
   }
 
   /* "heapitem.pyx":25
- *            self.password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s
+ *            self._password[length] = b'\0' # Ensure null byte for security purposes  this should be equivalent to strncpy_s
  *         else:
  *             raise TypeError("The password must be of string type")             # <<<<<<<<<<<<<<
  * 
@@ -2927,7 +2975,7 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
   __pyx_L8:;
 
   /* "heapitem.pyx":12
- *     cdef char* password
+ *     cdef char* _password
  * 
  *     def __cinit__(self, double probability, password:str, unsigned length):             # <<<<<<<<<<<<<<
  *         if not (isinstance(length,int) and length > 0):
@@ -2953,8 +3001,8 @@ static int __pyx_pf_8heapitem_8HeapItem___cinit__(struct __pyx_obj_8heapitem_Hea
  *             raise TypeError("The Probability must be a float")
  * 
  *     def free(self):             # <<<<<<<<<<<<<<
- *          if self.password != NULL:
- *             PyMem_Free(self.password)
+ *          if self._password != NULL:
+ *             PyMem_Free(self._password)
 */
 
 /* Python wrapper */
@@ -3008,37 +3056,37 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_2free(struct __pyx_obj_8heapitem_H
   /* "heapitem.pyx":33
  * 
  *     def free(self):
- *          if self.password != NULL:             # <<<<<<<<<<<<<<
- *             PyMem_Free(self.password)
- *             self.password = NULL
+ *          if self._password != NULL:             # <<<<<<<<<<<<<<
+ *             PyMem_Free(self._password)
+ *             self._password = NULL
 */
-  __pyx_t_1 = (__pyx_v_self->password != NULL);
+  __pyx_t_1 = (__pyx_v_self->_password != NULL);
   if (__pyx_t_1) {
 
     /* "heapitem.pyx":34
  *     def free(self):
- *          if self.password != NULL:
- *             PyMem_Free(self.password)             # <<<<<<<<<<<<<<
- *             self.password = NULL
+ *          if self._password != NULL:
+ *             PyMem_Free(self._password)             # <<<<<<<<<<<<<<
+ *             self._password = NULL
  * 
 */
-    PyMem_Free(__pyx_v_self->password);
+    PyMem_Free(__pyx_v_self->_password);
 
     /* "heapitem.pyx":35
- *          if self.password != NULL:
- *             PyMem_Free(self.password)
- *             self.password = NULL             # <<<<<<<<<<<<<<
+ *          if self._password != NULL:
+ *             PyMem_Free(self._password)
+ *             self._password = NULL             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
 */
-    __pyx_v_self->password = NULL;
+    __pyx_v_self->_password = NULL;
 
     /* "heapitem.pyx":33
  * 
  *     def free(self):
- *          if self.password != NULL:             # <<<<<<<<<<<<<<
- *             PyMem_Free(self.password)
- *             self.password = NULL
+ *          if self._password != NULL:             # <<<<<<<<<<<<<<
+ *             PyMem_Free(self._password)
+ *             self._password = NULL
 */
   }
 
@@ -3046,8 +3094,8 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_2free(struct __pyx_obj_8heapitem_H
  *             raise TypeError("The Probability must be a float")
  * 
  *     def free(self):             # <<<<<<<<<<<<<<
- *          if self.password != NULL:
- *             PyMem_Free(self.password)
+ *          if self._password != NULL:
+ *             PyMem_Free(self._password)
 */
 
   /* function exit code */
@@ -3058,11 +3106,11 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_2free(struct __pyx_obj_8heapitem_H
 }
 
 /* "heapitem.pyx":37
- *             self.password = NULL
+ *             self._password = NULL
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.password != NULL:
- *             PyMem_Free(self.password)
+ *         if self._password != NULL:
+ *             PyMem_Free(self._password)
 */
 
 /* Python wrapper */
@@ -3084,44 +3132,44 @@ static void __pyx_pf_8heapitem_8HeapItem_4__dealloc__(struct __pyx_obj_8heapitem
   /* "heapitem.pyx":38
  * 
  *     def __dealloc__(self):
- *         if self.password != NULL:             # <<<<<<<<<<<<<<
- *             PyMem_Free(self.password)
+ *         if self._password != NULL:             # <<<<<<<<<<<<<<
+ *             PyMem_Free(self._password)
  * 
 */
-  __pyx_t_1 = (__pyx_v_self->password != NULL);
+  __pyx_t_1 = (__pyx_v_self->_password != NULL);
   if (__pyx_t_1) {
 
     /* "heapitem.pyx":39
  *     def __dealloc__(self):
- *         if self.password != NULL:
- *             PyMem_Free(self.password)             # <<<<<<<<<<<<<<
+ *         if self._password != NULL:
+ *             PyMem_Free(self._password)             # <<<<<<<<<<<<<<
  * 
  *     def __lt__(self, HeapItem other)->bool:
 */
-    PyMem_Free(__pyx_v_self->password);
+    PyMem_Free(__pyx_v_self->_password);
 
     /* "heapitem.pyx":38
  * 
  *     def __dealloc__(self):
- *         if self.password != NULL:             # <<<<<<<<<<<<<<
- *             PyMem_Free(self.password)
+ *         if self._password != NULL:             # <<<<<<<<<<<<<<
+ *             PyMem_Free(self._password)
  * 
 */
   }
 
   /* "heapitem.pyx":37
- *             self.password = NULL
+ *             self._password = NULL
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.password != NULL:
- *             PyMem_Free(self.password)
+ *         if self._password != NULL:
+ *             PyMem_Free(self._password)
 */
 
   /* function exit code */
 }
 
 /* "heapitem.pyx":41
- *             PyMem_Free(self.password)
+ *             PyMem_Free(self._password)
  * 
  *     def __lt__(self, HeapItem other)->bool:             # <<<<<<<<<<<<<<
  *         return self._prob < other._prob
@@ -3177,7 +3225,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_6__lt__(struct __pyx_obj_8heapitem
   goto __pyx_L0;
 
   /* "heapitem.pyx":41
- *             PyMem_Free(self.password)
+ *             PyMem_Free(self._password)
  * 
  *     def __lt__(self, HeapItem other)->bool:             # <<<<<<<<<<<<<<
  *         return self._prob < other._prob
@@ -3246,7 +3294,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_8__eq__(struct __pyx_obj_8heapitem
  *     def __eq__(self, HeapItem other)->bool:
  *         return self._prob == other._prob and self.password_string == other.password_string             # <<<<<<<<<<<<<<
  * 
- *     @property
+ *     def memory_size(self) -> dict[str[int]]:
 */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = (__pyx_v_self->_prob == __pyx_v_other->_prob);
@@ -3298,9 +3346,265 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_8__eq__(struct __pyx_obj_8heapitem
 /* "heapitem.pyx":47
  *         return self._prob == other._prob and self.password_string == other.password_string
  * 
+ *     def memory_size(self) -> dict[str[int]]:             # <<<<<<<<<<<<<<
+ *         """Return detailed breakdown of memory usage"""
+ *         return {
+*/
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8heapitem_8HeapItem_11memory_size(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+PyDoc_STRVAR(__pyx_doc_8heapitem_8HeapItem_10memory_size, "Return detailed breakdown of memory usage");
+static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_11memory_size = {"memory_size", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_11memory_size, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_8heapitem_8HeapItem_10memory_size};
+static PyObject *__pyx_pw_8heapitem_8HeapItem_11memory_size(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("memory_size (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_SIZE
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  if (unlikely(__pyx_nargs > 0)) { __Pyx_RaiseArgtupleInvalid("memory_size", 1, 0, 0, __pyx_nargs); return NULL; }
+  const Py_ssize_t __pyx_kwds_len = unlikely(__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
+  if (unlikely(__pyx_kwds_len < 0)) return NULL;
+  if (unlikely(__pyx_kwds_len > 0)) {__Pyx_RejectKeywords("memory_size", __pyx_kwds); return NULL;}
+  __pyx_r = __pyx_pf_8heapitem_8HeapItem_10memory_size(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8heapitem_8HeapItem_10memory_size(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  size_t __pyx_t_5;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("memory_size", 0);
+
+  /* "heapitem.pyx":49
+ *     def memory_size(self) -> dict[str[int]]:
+ *         """Return detailed breakdown of memory usage"""
+ *         return {             # <<<<<<<<<<<<<<
+ *             'object_size': sizeof(HeapItem),
+ *             'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,
+*/
+  __Pyx_XDECREF(__pyx_r);
+
+  /* "heapitem.pyx":50
+ *         """Return detailed breakdown of memory usage"""
+ *         return {
+ *             'object_size': sizeof(HeapItem),             # <<<<<<<<<<<<<<
+ *             'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,
+ *             'total': sizeof(HeapItem) + (sizeof(char) * (strlen(self._password)+ 1) if self._password != NULL else 0)
+*/
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyLong_FromSize_t((sizeof(struct __pyx_obj_8heapitem_HeapItem))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_object_size, __pyx_t_2) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "heapitem.pyx":51
+ *         return {
+ *             'object_size': sizeof(HeapItem),
+ *             'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,             # <<<<<<<<<<<<<<
+ *             'total': sizeof(HeapItem) + (sizeof(char) * (strlen(self._password)+ 1) if self._password != NULL else 0)
+ *         }
+*/
+  __pyx_t_3 = (__pyx_v_self->_password != NULL);
+  if (__pyx_t_3) {
+    __pyx_t_4 = __Pyx_PyLong_FromSize_t(((sizeof(char)) * (strlen(__pyx_v_self->_password) + 1))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_2 = __pyx_t_4;
+    __pyx_t_4 = 0;
+  } else {
+    __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
+    __pyx_t_2 = __pyx_mstate_global->__pyx_int_0;
+  }
+  if (PyDict_SetItem(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_password_buffer, __pyx_t_2) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "heapitem.pyx":52
+ *             'object_size': sizeof(HeapItem),
+ *             'password_buffer': sizeof(char) * (strlen(self._password)+1) if self._password != NULL else 0,
+ *             'total': sizeof(HeapItem) + (sizeof(char) * (strlen(self._password)+ 1) if self._password != NULL else 0)             # <<<<<<<<<<<<<<
+ *         }
+ * 
+*/
+  __pyx_t_3 = (__pyx_v_self->_password != NULL);
+  if (__pyx_t_3) {
+    __pyx_t_5 = ((sizeof(char)) * (strlen(__pyx_v_self->_password) + 1));
+  } else {
+    __pyx_t_5 = 0;
+  }
+  __pyx_t_2 = __Pyx_PyLong_FromSize_t(((sizeof(struct __pyx_obj_8heapitem_HeapItem)) + __pyx_t_5)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_total, __pyx_t_2) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "heapitem.pyx":47
+ *         return self._prob == other._prob and self.password_string == other.password_string
+ * 
+ *     def memory_size(self) -> dict[str[int]]:             # <<<<<<<<<<<<<<
+ *         """Return detailed breakdown of memory usage"""
+ *         return {
+*/
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("heapitem.HeapItem.memory_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "heapitem.pyx":55
+ *         }
+ * 
+ *     def __sizeof__(self)->int:             # <<<<<<<<<<<<<<
+ *         return self.memory_size()['total']
+ * 
+*/
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8heapitem_8HeapItem_13__sizeof__(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_13__sizeof__ = {"__sizeof__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_13__sizeof__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8heapitem_8HeapItem_13__sizeof__(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__sizeof__ (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_SIZE
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  if (unlikely(__pyx_nargs > 0)) { __Pyx_RaiseArgtupleInvalid("__sizeof__", 1, 0, 0, __pyx_nargs); return NULL; }
+  const Py_ssize_t __pyx_kwds_len = unlikely(__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
+  if (unlikely(__pyx_kwds_len < 0)) return NULL;
+  if (unlikely(__pyx_kwds_len > 0)) {__Pyx_RejectKeywords("__sizeof__", __pyx_kwds); return NULL;}
+  __pyx_r = __pyx_pf_8heapitem_8HeapItem_12__sizeof__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8heapitem_8HeapItem_12__sizeof__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  size_t __pyx_t_3;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__sizeof__", 0);
+
+  /* "heapitem.pyx":56
+ * 
+ *     def __sizeof__(self)->int:
+ *         return self.memory_size()['total']             # <<<<<<<<<<<<<<
+ * 
+ *     @property
+*/
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = ((PyObject *)__pyx_v_self);
+  __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_3 = 0;
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCallMethod(__pyx_mstate_global->__pyx_n_u_memory_size, __pyx_callargs+__pyx_t_3, (1-__pyx_t_3) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+  }
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_total); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (!(likely(PyLong_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_r = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "heapitem.pyx":55
+ *         }
+ * 
+ *     def __sizeof__(self)->int:             # <<<<<<<<<<<<<<
+ *         return self.memory_size()['total']
+ * 
+*/
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("heapitem.HeapItem.__sizeof__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "heapitem.pyx":58
+ *         return self.memory_size()['total']
+ * 
  *     @property             # <<<<<<<<<<<<<<
  *     def password_string(self)->str:
- *         return (<bytes>PyBytes_FromStringAndSize(self.password, strlen(self.password))).decode('ascii') # a bit inefficient since we calculate the length
+ *         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii')
 */
 
 /* Python wrapper */
@@ -3328,33 +3632,33 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_15password_string___get__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "heapitem.pyx":49
+  /* "heapitem.pyx":60
  *     @property
  *     def password_string(self)->str:
- *         return (<bytes>PyBytes_FromStringAndSize(self.password, strlen(self.password))).decode('ascii') # a bit inefficient since we calculate the length             # <<<<<<<<<<<<<<
+ *         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii')             # <<<<<<<<<<<<<<
  * 
  *     @property
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyBytes_FromStringAndSize(__pyx_v_self->password, strlen(__pyx_v_self->password)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = PyBytes_FromStringAndSize(__pyx_v_self->_password, strlen(__pyx_v_self->_password)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "decode");
-    __PYX_ERR(0, 49, __pyx_L1_error)
+    __PYX_ERR(0, 60, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_decode_bytes(((PyObject*)__pyx_t_1), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_decode_bytes(((PyObject*)__pyx_t_1), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "heapitem.pyx":47
- *         return self._prob == other._prob and self.password_string == other.password_string
+  /* "heapitem.pyx":58
+ *         return self.memory_size()['total']
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def password_string(self)->str:
- *         return (<bytes>PyBytes_FromStringAndSize(self.password, strlen(self.password))).decode('ascii') # a bit inefficient since we calculate the length
+ *         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii')
 */
 
   /* function exit code */
@@ -3369,8 +3673,8 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_15password_string___get__(struct _
   return __pyx_r;
 }
 
-/* "heapitem.pyx":51
- *         return (<bytes>PyBytes_FromStringAndSize(self.password, strlen(self.password))).decode('ascii') # a bit inefficient since we calculate the length
+/* "heapitem.pyx":62
+ *         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii')
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def prob(self):
@@ -3401,7 +3705,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_4prob___get__(struct __pyx_obj_8he
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "heapitem.pyx":53
+  /* "heapitem.pyx":64
  *     @property
  *     def prob(self):
  *         return self._prob             # <<<<<<<<<<<<<<
@@ -3409,14 +3713,14 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_4prob___get__(struct __pyx_obj_8he
  *     @prob.setter
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->_prob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->_prob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "heapitem.pyx":51
- *         return (<bytes>PyBytes_FromStringAndSize(self.password, strlen(self.password))).decode('ascii') # a bit inefficient since we calculate the length
+  /* "heapitem.pyx":62
+ *         return (<bytes>PyBytes_FromStringAndSize(self._password, strlen(self._password))).decode('ascii')
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def prob(self):
@@ -3434,7 +3738,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_4prob___get__(struct __pyx_obj_8he
   return __pyx_r;
 }
 
-/* "heapitem.pyx":55
+/* "heapitem.pyx":66
  *         return self._prob
  * 
  *     @prob.setter             # <<<<<<<<<<<<<<
@@ -3464,17 +3768,17 @@ static int __pyx_pf_8heapitem_8HeapItem_4prob_2__set__(struct __pyx_obj_8heapite
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "heapitem.pyx":57
+  /* "heapitem.pyx":68
  *     @prob.setter
  *     def prob(self, val):
  *         self._prob = val             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self)->str:
 */
-  __pyx_t_1 = __Pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 68, __pyx_L1_error)
   __pyx_v_self->_prob = __pyx_t_1;
 
-  /* "heapitem.pyx":55
+  /* "heapitem.pyx":66
  *         return self._prob
  * 
  *     @prob.setter             # <<<<<<<<<<<<<<
@@ -3492,7 +3796,7 @@ static int __pyx_pf_8heapitem_8HeapItem_4prob_2__set__(struct __pyx_obj_8heapite
   return __pyx_r;
 }
 
-/* "heapitem.pyx":59
+/* "heapitem.pyx":70
  *         self._prob = val
  * 
  *     def __repr__(self)->str:             # <<<<<<<<<<<<<<
@@ -3500,21 +3804,21 @@ static int __pyx_pf_8heapitem_8HeapItem_4prob_2__set__(struct __pyx_obj_8heapite
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8heapitem_8HeapItem_11__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_8heapitem_8HeapItem_11__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_8heapitem_8HeapItem_15__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_8heapitem_8HeapItem_15__repr__(PyObject *__pyx_v_self) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
-  __pyx_r = __pyx_pf_8heapitem_8HeapItem_10__repr__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_8heapitem_8HeapItem_14__repr__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
+static PyObject *__pyx_pf_8heapitem_8HeapItem_14__repr__(struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3526,20 +3830,20 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapi
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "heapitem.pyx":60
+  /* "heapitem.pyx":71
  * 
  *     def __repr__(self)->str:
  *         return f"({self.prob}, {self.password_string})"             # <<<<<<<<<<<<<<
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_mstate_global->__pyx_n_u_prob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_mstate_global->__pyx_n_u_prob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_mstate_global->__pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_mstate_global->__pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_mstate_global->__pyx_n_u_password_string); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_mstate_global->__pyx_n_u_password_string); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_mstate_global->__pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_mstate_global->__pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4[0] = __pyx_mstate_global->__pyx_kp_u_;
@@ -3548,7 +3852,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapi
   __pyx_t_4[3] = __pyx_t_3;
   __pyx_t_4[4] = __pyx_mstate_global->__pyx_kp_u__3;
   __pyx_t_1 = __Pyx_PyUnicode_Join(__pyx_t_4, 5, 1 * 2 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2) + 2 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_3), 127 | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3));
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3556,7 +3860,7 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapi
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "heapitem.pyx":59
+  /* "heapitem.pyx":70
  *         self._prob = val
  * 
  *     def __repr__(self)->str:             # <<<<<<<<<<<<<<
@@ -3583,15 +3887,15 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_10__repr__(struct __pyx_obj_8heapi
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8heapitem_8HeapItem_13__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_8heapitem_8HeapItem_17__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_13__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_13__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_8heapitem_8HeapItem_13__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_17__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_17__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8heapitem_8HeapItem_17__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3617,14 +3921,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   const Py_ssize_t __pyx_kwds_len = unlikely(__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
   if (unlikely(__pyx_kwds_len < 0)) return NULL;
   if (unlikely(__pyx_kwds_len > 0)) {__Pyx_RejectKeywords("__reduce_cython__", __pyx_kwds); return NULL;}
-  __pyx_r = __pyx_pf_8heapitem_8HeapItem_12__reduce_cython__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_8heapitem_8HeapItem_16__reduce_cython__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8heapitem_8HeapItem_12__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
+static PyObject *__pyx_pf_8heapitem_8HeapItem_16__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -3664,15 +3968,15 @@ static PyObject *__pyx_pf_8heapitem_8HeapItem_12__reduce_cython__(CYTHON_UNUSED 
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8heapitem_8HeapItem_15__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_8heapitem_8HeapItem_19__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_15__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_15__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_8heapitem_8HeapItem_15__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_8heapitem_8HeapItem_19__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_19__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8heapitem_8HeapItem_19__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3738,7 +4042,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8heapitem_8HeapItem_14__setstate_cython__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_8heapitem_8HeapItem_18__setstate_cython__(((struct __pyx_obj_8heapitem_HeapItem *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3748,7 +4052,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8heapitem_8HeapItem_14__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_8heapitem_8HeapItem_18__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_8heapitem_HeapItem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -3873,8 +4177,10 @@ static int __pyx_setprop_8heapitem_8HeapItem_prob(PyObject *o, PyObject *v, CYTH
 
 static PyMethodDef __pyx_methods_8heapitem_HeapItem[] = {
   {"free", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_3free, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_13__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_15__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"memory_size", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_11memory_size, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_8heapitem_8HeapItem_10memory_size},
+  {"__sizeof__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_13__sizeof__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_17__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8heapitem_8HeapItem_19__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -3886,7 +4192,7 @@ static struct PyGetSetDef __pyx_getsets_8heapitem_HeapItem[] = {
 #if CYTHON_USE_TYPE_SPECS
 static PyType_Slot __pyx_type_8heapitem_HeapItem_slots[] = {
   {Py_tp_dealloc, (void *)__pyx_tp_dealloc_8heapitem_HeapItem},
-  {Py_tp_repr, (void *)__pyx_pw_8heapitem_8HeapItem_11__repr__},
+  {Py_tp_repr, (void *)__pyx_pw_8heapitem_8HeapItem_15__repr__},
   {Py_tp_richcompare, (void *)__pyx_tp_richcompare_8heapitem_HeapItem},
   {Py_tp_methods, (void *)__pyx_methods_8heapitem_HeapItem},
   {Py_tp_getset, (void *)__pyx_getsets_8heapitem_HeapItem},
@@ -3917,7 +4223,7 @@ static PyTypeObject __pyx_type_8heapitem_HeapItem = {
   0, /*tp_getattr*/
   0, /*tp_setattr*/
   0, /*tp_as_async*/
-  __pyx_pw_8heapitem_8HeapItem_11__repr__, /*tp_repr*/
+  __pyx_pw_8heapitem_8HeapItem_15__repr__, /*tp_repr*/
   0, /*tp_as_number*/
   0, /*tp_as_sequence*/
   0, /*tp_as_mapping*/
@@ -4281,6 +4587,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_heapitem(PyObject *__pyx_pyinit_mo
   __pyx_mstatetype *__pyx_mstate = NULL;
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4391,12 +4698,46 @@ __Pyx_RefNannySetupContext("PyInit_heapitem", 0);
  *             raise TypeError("The Probability must be a float")
  * 
  *     def free(self):             # <<<<<<<<<<<<<<
- *          if self.password != NULL:
- *             PyMem_Free(self.password)
+ *          if self._password != NULL:
+ *             PyMem_Free(self._password)
 */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_3free, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem_free, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (__Pyx_SetItemOnTypeDict(__pyx_mstate_global->__pyx_ptype_8heapitem_HeapItem, __pyx_mstate_global->__pyx_n_u_free, __pyx_t_2) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "heapitem.pyx":47
+ *         return self._prob == other._prob and self.password_string == other.password_string
+ * 
+ *     def memory_size(self) -> dict[str[int]]:             # <<<<<<<<<<<<<<
+ *         """Return detailed breakdown of memory usage"""
+ *         return {
+*/
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_return, __pyx_mstate_global->__pyx_kp_u_dict_str_int) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_11memory_size, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem_memory_size, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_SetItemOnTypeDict(__pyx_mstate_global->__pyx_ptype_8heapitem_HeapItem, __pyx_mstate_global->__pyx_n_u_memory_size, __pyx_t_3) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "heapitem.pyx":55
+ *         }
+ * 
+ *     def __sizeof__(self)->int:             # <<<<<<<<<<<<<<
+ *         return self.memory_size()['total']
+ * 
+*/
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_return, __pyx_mstate_global->__pyx_n_u_int) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_13__sizeof__, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem___sizeof, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_SetItemOnTypeDict(__pyx_mstate_global->__pyx_ptype_8heapitem_HeapItem, __pyx_mstate_global->__pyx_n_u_sizeof, __pyx_t_2) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "(tree fragment)":1
@@ -4404,7 +4745,7 @@ __Pyx_RefNannySetupContext("PyInit_heapitem", 0);
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  * def __setstate_cython__(self, __pyx_state):
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_13__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem___reduce_cython, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_17__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem___reduce_cython, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[3])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_reduce_cython, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4415,7 +4756,7 @@ __Pyx_RefNannySetupContext("PyInit_heapitem", 0);
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_15__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem___setstate_cython, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 3, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8heapitem_8HeapItem_19__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_mstate_global->__pyx_n_u_HeapItem___setstate_cython, NULL, __pyx_mstate_global->__pyx_n_u_heapitem, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[4])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_setstate_cython, __pyx_t_2) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4435,6 +4776,7 @@ __Pyx_RefNannySetupContext("PyInit_heapitem", 0);
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_mstate->__pyx_d && stringtab_initialized) {
       __Pyx_AddTraceback("init heapitem", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -4493,7 +4835,9 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_HeapItem, sizeof(__pyx_k_HeapItem), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem */
   {__pyx_k_HeapItem___reduce_cython, sizeof(__pyx_k_HeapItem___reduce_cython), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem___reduce_cython */
   {__pyx_k_HeapItem___setstate_cython, sizeof(__pyx_k_HeapItem___setstate_cython), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem___setstate_cython */
+  {__pyx_k_HeapItem___sizeof, sizeof(__pyx_k_HeapItem___sizeof), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem___sizeof */
   {__pyx_k_HeapItem_free, sizeof(__pyx_k_HeapItem_free), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem_free */
+  {__pyx_k_HeapItem_memory_size, sizeof(__pyx_k_HeapItem_memory_size), 0, 1, 1}, /* PyObject cname: __pyx_n_u_HeapItem_memory_size */
   {__pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 1, 1}, /* PyObject cname: __pyx_n_u_MemoryError */
   {__pyx_k_Note_that_Cython_is_deliberately, sizeof(__pyx_k_Note_that_Cython_is_deliberately), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_Note_that_Cython_is_deliberately */
   {__pyx_k_The_Probability_must_be_a_float, sizeof(__pyx_k_The_Probability_must_be_a_float), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_The_Probability_must_be_a_float */
@@ -4506,6 +4850,7 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_add_note, sizeof(__pyx_k_add_note), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_add_note */
   {__pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 1, 1}, /* PyObject cname: __pyx_n_u_asyncio_coroutines */
   {__pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 1, 1}, /* PyObject cname: __pyx_n_u_cline_in_traceback */
+  {__pyx_k_dict_str_int, sizeof(__pyx_k_dict_str_int), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_dict_str_int */
   {__pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_disable */
   {__pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_enable */
   {__pyx_k_free, sizeof(__pyx_k_free), 0, 1, 1}, /* PyObject cname: __pyx_n_u_free */
@@ -4514,14 +4859,18 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 1, 1}, /* PyObject cname: __pyx_n_u_getstate */
   {__pyx_k_heapitem, sizeof(__pyx_k_heapitem), 0, 1, 1}, /* PyObject cname: __pyx_n_u_heapitem */
   {__pyx_k_heapitem_pyx, sizeof(__pyx_k_heapitem_pyx), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_heapitem_pyx */
+  {__pyx_k_int, sizeof(__pyx_k_int), 0, 1, 1}, /* PyObject cname: __pyx_n_u_int */
   {__pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 1, 1}, /* PyObject cname: __pyx_n_u_is_coroutine */
   {__pyx_k_isenabled, sizeof(__pyx_k_isenabled), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_isenabled */
   {__pyx_k_length, sizeof(__pyx_k_length), 0, 1, 1}, /* PyObject cname: __pyx_n_u_length */
   {__pyx_k_main, sizeof(__pyx_k_main), 0, 1, 1}, /* PyObject cname: __pyx_n_u_main */
+  {__pyx_k_memory_size, sizeof(__pyx_k_memory_size), 0, 1, 1}, /* PyObject cname: __pyx_n_u_memory_size */
   {__pyx_k_module, sizeof(__pyx_k_module), 0, 1, 1}, /* PyObject cname: __pyx_n_u_module */
   {__pyx_k_name, sizeof(__pyx_k_name), 0, 1, 1}, /* PyObject cname: __pyx_n_u_name */
   {__pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_no_default___reduce___due_to_non */
+  {__pyx_k_object_size, sizeof(__pyx_k_object_size), 0, 1, 1}, /* PyObject cname: __pyx_n_u_object_size */
   {__pyx_k_password, sizeof(__pyx_k_password), 0, 1, 1}, /* PyObject cname: __pyx_n_u_password */
+  {__pyx_k_password_buffer, sizeof(__pyx_k_password_buffer), 0, 1, 1}, /* PyObject cname: __pyx_n_u_password_buffer */
   {__pyx_k_password_string, sizeof(__pyx_k_password_string), 0, 1, 1}, /* PyObject cname: __pyx_n_u_password_string */
   {__pyx_k_pop, sizeof(__pyx_k_pop), 0, 1, 1}, /* PyObject cname: __pyx_n_u_pop */
   {__pyx_k_prob, sizeof(__pyx_k_prob), 0, 1, 1}, /* PyObject cname: __pyx_n_u_prob */
@@ -4531,12 +4880,15 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 1, 1}, /* PyObject cname: __pyx_n_u_reduce */
   {__pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 1, 1}, /* PyObject cname: __pyx_n_u_reduce_cython */
   {__pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 1, 1}, /* PyObject cname: __pyx_n_u_reduce_ex */
+  {__pyx_k_return, sizeof(__pyx_k_return), 0, 1, 1}, /* PyObject cname: __pyx_n_u_return */
   {__pyx_k_self, sizeof(__pyx_k_self), 0, 1, 1}, /* PyObject cname: __pyx_n_u_self */
   {__pyx_k_set_name, sizeof(__pyx_k_set_name), 0, 1, 1}, /* PyObject cname: __pyx_n_u_set_name */
   {__pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 1, 1}, /* PyObject cname: __pyx_n_u_setstate */
   {__pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 1, 1}, /* PyObject cname: __pyx_n_u_setstate_cython */
+  {__pyx_k_sizeof, sizeof(__pyx_k_sizeof), 0, 1, 1}, /* PyObject cname: __pyx_n_u_sizeof */
   {__pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_stringsource */
   {__pyx_k_test, sizeof(__pyx_k_test), 0, 1, 1}, /* PyObject cname: __pyx_n_u_test */
+  {__pyx_k_total, sizeof(__pyx_k_total), 0, 1, 1}, /* PyObject cname: __pyx_n_u_total */
   {0, 0, 0, 0, 0}
 };
 /* InitStrings.proto */
@@ -4568,6 +4920,7 @@ static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   __pyx_mstate->__pyx_umethod_PyDict_Type_pop.type = (PyObject*)&PyDict_Type;
   __pyx_mstate->__pyx_umethod_PyDict_Type_pop.method_name = &__pyx_mstate->__pyx_n_u_pop;
   if (__Pyx_InitStrings(__pyx_string_tab, __pyx_mstate->__pyx_string_tab, __pyx_string_tab_encodings) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_mstate->__pyx_int_0 = PyLong_FromLong(0); if (unlikely(!__pyx_mstate->__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -4581,7 +4934,7 @@ static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
             unsigned int nlocals : 2;
             unsigned int flags : 10;
             unsigned int first_line : 6;
-            unsigned int line_table_length : 10;
+            unsigned int line_table_length : 11;
         } __Pyx_PyCode_New_function_description;
 /* NewCodeObj.proto */
 static PyObject* __Pyx_PyCode_New(
@@ -4600,17 +4953,27 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
   {
     const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 32, 29};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self};
-    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_heapitem_pyx, __pyx_mstate->__pyx_n_u_free, __pyx_k_A_D_Q_at1_A, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_heapitem_pyx, __pyx_mstate->__pyx_n_u_free, __pyx_k_A_D_3a_at1_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
+  }
+  {
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 47, 86};
+    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self};
+    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_heapitem_pyx, __pyx_mstate->__pyx_n_u_memory_size, __pyx_k_Q_1_CvQd_QfDP_hhi_c_c_q_KrQWW_f, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
+  }
+  {
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 55, 18};
+    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self};
+    __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_heapitem_pyx, __pyx_mstate->__pyx_n_u_sizeof, __pyx_k_t_r, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
   }
   {
     const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 1, 9};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self};
-    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_stringsource, __pyx_mstate->__pyx_n_u_reduce_cython, __pyx_k_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[3] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_stringsource, __pyx_mstate->__pyx_n_u_reduce_cython, __pyx_k_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[3])) goto bad;
   }
   {
     const __Pyx_PyCode_New_function_description descr = {2, 0, 0, 2, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 3, 9};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self, __pyx_mstate->__pyx_n_u_pyx_state};
-    __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_stringsource, __pyx_mstate->__pyx_n_u_setstate_cython, __pyx_k_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[4] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_stringsource, __pyx_mstate->__pyx_n_u_setstate_cython, __pyx_k_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[4])) goto bad;
   }
   Py_DECREF(tuple_dedup_map);
   return 0;
@@ -6034,6 +6397,49 @@ static void __Pyx_RejectKeywords(const char* function_name, PyObject *kwds) {
             function_name, key);
         Py_DECREF(key);
     }
+}
+
+/* PyObjectFastCallMethod */
+#if !CYTHON_VECTORCALL || PY_VERSION_HEX < 0x03090000
+static PyObject *__Pyx_PyObject_FastCallMethod(PyObject *name, PyObject *const *args, size_t nargsf) {
+    PyObject *result;
+    PyObject *attr = PyObject_GetAttr(args[0], name);
+    if (unlikely(!attr))
+        return NULL;
+    result = __Pyx_PyObject_FastCall(attr, args+1, nargsf - 1);
+    Py_DECREF(attr);
+    return result;
+}
+#endif
+
+/* DictGetItem */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
+    PyObject *value;
+    if (unlikely(__Pyx_PyDict_GetItemRef(d, key, &value) == 0)) { // no value, no error
+        if (unlikely(PyTuple_Check(key))) {
+            PyObject* args = PyTuple_Pack(1, key);
+            if (likely(args)) {
+                PyErr_SetObject(PyExc_KeyError, args);
+                Py_DECREF(args);
+            }
+        } else {
+            PyErr_SetObject(PyExc_KeyError, key);
+        }
+    }
+    return value;
+}
+#endif
+
+/* RaiseUnexpectedTypeError */
+static int
+__Pyx_RaiseUnexpectedTypeError(const char *expected, PyObject *obj)
+{
+    __Pyx_TypeName obj_type_name = __Pyx_PyType_GetFullyQualifiedName(Py_TYPE(obj));
+    PyErr_Format(PyExc_TypeError, "Expected %s, got " __Pyx_FMT_TYPENAME,
+                 expected, obj_type_name);
+    __Pyx_DECREF_TypeName(obj_type_name);
+    return 0;
 }
 
 /* decode_c_bytes */

@@ -1,2 +1,27 @@
+# Compiled extension modules
+    *.so
+    *.pyd
+    *.dll
+    *.o
+
+# Cython-generated files
+*.c
 *.cpp
-*.so
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# IDE/editor files
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.swp
+*.bak
+
+# Virtual environments
+.venv/
+env/
+venv/
