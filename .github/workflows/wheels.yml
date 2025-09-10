@@ -26,6 +26,7 @@ jobs:
 
       - name: Build wheels
         env:
+          CIBW_CONTAINER_ENGINE: docker
           CIBW_BUILD: "cp*-*" # build for all CPython versions
           CIBW_SKIP: "pp*" # skip PyPy
         run: python -m cibuildwheel --output-dir wheelhouse
