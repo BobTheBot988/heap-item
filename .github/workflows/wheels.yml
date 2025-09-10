@@ -1,0 +1,79 @@
+name: Build wheels
+
+on:
+  push:
+    tags:
+      - "v*" # build on version tags
+  workflow_dispatch: # allow manual runs
+  schedule:
+    - cron: "0 6 * * 1" # weekly, to pick up newly supported Pythons
+
+jobs:
+  build_wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use any runner Python to drive cibuildwheel (NOT the build targets)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tooling
+        run: |
+          python -m pip install -U pip
+          pip install -U cibuildwheel
+
+      - name: Build wheels
+        env:
+          # Build for all supported CPython versions on each platform:
+          # (omit entirely to use cibuildwheel's default)
+          CIBW_BUILD: "cp*-*"
+          # Include prerelease Pythons (optional):
+          # CIBW_PRERELEASE_PYTHONS: "1"
+          # Skip PyPy if you don't support it:
+          CIBW_SKIP: "pp*"
+          # If you need extra Linux deps for your extension:
+          # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Upload wheels (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}
+          path: wheelhouse/*.whl
+
+  sdist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          python -m pip install -U pip build
+          python -m build --sdist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+
+  # Optional: publish to PyPI when you push a tag
+  publish:
+    needs: [build_wheels, sdist]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
