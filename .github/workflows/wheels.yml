@@ -16,12 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12" # runner Python, not target
+          python-version: "3.12"
 
-      # Only runs when the OS is Ubuntu
+      # aarch64 on Linux needs QEMU
       - name: Enable QEMU for cross-arch Docker
         if: matrix.os == 'ubuntu-latest'
         uses: docker/setup-qemu-action@v3
@@ -31,11 +30,10 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install -U pip cibuildwheel
 
+      - name: Show planned builds (from TOML)
+        run: python -m cibuildwheel --print-build-identifiers
+
       - name: Build wheels
-        env:
-          CIBW_SKIP: "*t pp*" # skip no-GIL builds and PyPy
-          CIBW_CONTAINER_ENGINE: docker
-          CIBW_BUILD: "cp*-*" # build for all CPython versions
         run: python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v4

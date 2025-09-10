@@ -49,5 +49,5 @@ archs = ["x86_64", "aarch64"]
 [tool.cibuildwheel]
 
 build-frontend = "pip"
-skip = "*-musllinux*"
+skip = "*t pp* *-musllinux*"
 environment = { CFLAGS = "-O3" }
