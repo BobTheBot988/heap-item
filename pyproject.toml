@@ -48,4 +48,5 @@ archs = ["auto", "aarch64"]
 build-frontend = "pip"
 build = "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
 skip = "*-musllinux*"
+skip = "*-win32"
 environment = { CFLAGS = "-O3" }

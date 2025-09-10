@@ -21,6 +21,13 @@ jobs:
         with:
           python-version: "3.12" # runner Python, not target
 
+      # Only runs when the OS is Ubuntu
+      - name: Enable QEMU for cross-arch Docker
+        if: matrix.os == 'ubuntu-latest'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - name: Install cibuildwheel
         run: python -m pip install -U pip cibuildwheel
 
