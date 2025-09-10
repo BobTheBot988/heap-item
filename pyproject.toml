@@ -14,11 +14,19 @@ authors = [
     { name="Roberto Di Rosa", email="dirosa.2043388@studenti.uniroma1.it" }
 ]
 readme = "README.md"
-license = {text = "dunno"}
+license = { file = "LICENSE" }
+
+classifiers = [
+  "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Operating System :: OS Independent",
+]
 requires-python = ">=3.8"
 
 [project.urls]
 Homepage = "https://github.com/BobTheBot988/heapitem"
+Homepage = "https://github.com/BobTheBot988/heapitem/issues"
 
 [tool.setuptools.package-dir]
 "" = "."
