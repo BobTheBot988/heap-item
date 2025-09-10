@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=61.0",
     "wheel",
-    "cython>=3.0.0"
+    "cython>=3.0.0",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -14,7 +14,7 @@ authors = [
     { name="Roberto Di Rosa", email="dirosa.2043388@studenti.uniroma1.it" }
 ]
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "dunno"}
 requires-python = ">=3.8"
 
 [project.urls]
@@ -23,8 +23,13 @@ Homepage = "https://github.com/BobTheBot988/heapitem"
 [tool.setuptools.package-dir]
 "" = "."
 
+[tool.setuptools]
+ext-modules = [
+  { name = "heapitem", sources = ["heapitem.pyx"] }
+]
+
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "universal2", "arm64"]
+archs = ["x86_64", "arm64"]
 
 # On an Linux Intel runner with qemu installed, build Intel and ARM wheels
 [tool.cibuildwheel.linux]

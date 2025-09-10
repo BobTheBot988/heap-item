@@ -1,4 +1,1 @@
-cython
-setuptools
-wheel
 cibuildwheel
