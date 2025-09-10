@@ -44,11 +44,10 @@ archs = ["x86_64", "arm64"]
 
 # On an Linux Intel runner with qemu installed, build Intel and ARM wheels
 [tool.cibuildwheel.linux]
-archs = ["auto", "aarch64"]
+archs = ["x86_64", "aarch64"]
 
 [tool.cibuildwheel]
 
 build-frontend = "pip"
-build = "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
 skip = "*-musllinux*"
 environment = { CFLAGS = "-O3" }
