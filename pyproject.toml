@@ -36,6 +36,9 @@ ext-modules = [
   { name = "heapitem", sources = ["heapitem.pyx"] }
 ]
 
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
+
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"]
 
@@ -48,5 +51,4 @@ archs = ["auto", "aarch64"]
 build-frontend = "pip"
 build = "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
 skip = "*-musllinux*"
-skip = "*-win32"
 environment = { CFLAGS = "-O3" }
