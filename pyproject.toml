@@ -42,12 +42,11 @@ archs = ["AMD64"]
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"]
 
-# On an Linux Intel runner with qemu installed, build Intel and ARM wheels
 [tool.cibuildwheel.linux]
-archs = ["x86_64", "aarch64"]
+archs = ["auto64"]
 
 [tool.cibuildwheel]
 
 build-frontend = "pip"
-skip = "*t pp* *-musllinux*"
+skip = "*-musllinux*"
 environment = { CFLAGS = "-O3" }
