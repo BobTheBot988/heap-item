@@ -56,11 +56,25 @@ jobs:
     needs: [build_wheels, sdist]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # OIDC for Trusted Publishing
+      contents: read
     steps:
       - uses: actions/download-artifact@v4
         with:
+          pattern: |
+            wheels-*
+            sdist
           path: dist
+          merge-multiple: true
+
+      # optional but super helpful when debugging
+      - name: List dist contents
+        run: |
+          ls -l dist
+          find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \) -print
+
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist
+          attestations: true
