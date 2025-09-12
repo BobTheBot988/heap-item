@@ -10,7 +10,7 @@ cdef class HeapItem:
     cdef char* _string
 
     def __cinit__(self, double probability, string:str):
-        size_t length = len(string)
+        cdef Py_ssize_t _size length = len(string)
 
         if isinstance(string,str):
            string_bytes:bytes = (<str>string).encode('ascii')

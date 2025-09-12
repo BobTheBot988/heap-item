@@ -27,6 +27,7 @@ their value(double) of being correct.
 
 ```python
     from heapitem import HeapItem
+    min_heap_n_most_prob:list[float,str] = function()
     item = HeapItem(prob,string)
     heapq.heappush(min_heap_n_most_prob, item)
 
