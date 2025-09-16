@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "heapitem"
-version = "0.1.1"
+version = "0.1.6"
 description = "Cython-accelerated heap item for password benchmarking"
 authors = [
     { name="Roberto Di Rosa", email="dirosa.2043388@studenti.uniroma1.it" }
